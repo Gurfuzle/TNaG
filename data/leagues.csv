@@ -1,4 +1,5 @@
 slug,name,image,domo_embed_url,start_date,archived
+the-hobbit,The Hobbit,the-hobbit.jpg,https://embed.domo.com/embed/pages/zX3y7,2026-08-17,false
 secrets-of-strixhaven,Secrets of Strixhaven,secrets-of-strixhaven.jpg,https://embed.domo.com/embed/pages/yXo4V,2026-04-27,false
 lorwyn-eclipsed,Lorwyn Eclipsed,lorwyn-eclipsed.jpg,https://embed.domo.com/embed/pages/mY0PR,2026-01-26,false
 avatar-the-last-airbender,Avatar: The Last Airbender,avatar-the-last-airbender.jpg,https://embed.domo.com/embed/pages/WQ75n,2025-11-17,false
@@ -8,7 +9,7 @@ tarkir-dragonstorm,Tarkir: Dragonstorm,tarkir-dragonstorm.jpg,https://embed.domo
 aetherdrift,Aetherdrift,aetherdrift.jpg,https://embed.domo.com/embed/pages/wVJ9m,2025-02-17,false
 duskmourn,Duskmourn,duskmourn.jpg,https://embed.domo.com/embed/pages/gZxYr,2024-09-30,false
 bloomburrow,Bloomburrow,bloomburrow.png,https://embed.domo.com/embed/pages/zK1Ny,2024-08-05,false
-outlaws-of-thunder-junction,Outlaws of Thunder Junction,outlaws-of-thunder-junction.jpg,https://public.domo.com/embed/pages/xv5YP,2024-04-22,false
+outlaws-of-thunder-junction,Outlaws of Thunder Junction,outlaws-of-thunder-junction.jpg,https://public.domo.com/embed/pages/xv5YP,2024-04-22,true
 murders-at-karlov-manor,Murders at Karlov Manor,murders-at-karlov-manor.jpg,https://public.domo.com/embed/pages/pgEq6,2024-02-12,true
 lost-caverns-of-ixalan,Lost Caverns of Ixalan,lost-caverns-of-ixalan.jpg,https://public.domo.com/embed/pages/g5vqY,2023-11-20,true
 wilds-of-eldraine,Wilds of Eldraine,wilds-of-eldraine.jpg,https://public.domo.com/embed/pages/0g4jv,2023-09-11,true
