@@ -27,6 +27,18 @@ body {
     color: var(--color-text);
     background: var(--color-bg);
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    background-image: url('/assets/images/hero/gameroom-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 a {
@@ -47,7 +59,10 @@ img {
 .container {
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
 }
 
 /* Header */
@@ -213,29 +228,10 @@ img {
 
 /* Sections */
 .section {
-    padding: 3rem 0;
+    padding: 3rem 1.5rem;
 }
 
-/* Page background (game room) */
-.page-bg {
-    background-image: url('/assets/images/hero/gameroom-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    min-height: calc(100vh - var(--nav-height));
-}
-
-.page-bg .section {
-    position: relative;
-}
-
-.page-bg .container {
-    background: rgba(255, 255, 255, 0.92);
-    border-radius: 8px;
-    padding: 2rem 2rem;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
-}
+/* Page sections */
 
 .section h1 {
     font-size: 2rem;
@@ -349,6 +345,12 @@ img {
     background: var(--color-primary);
     text-align: center;
     padding: 3rem 0;
+}
+
+.cta-section .container {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 .cta-section h2 {
@@ -509,6 +511,12 @@ img {
 }
 
 /* About Page */
+.about-section {
+    min-height: calc(100vh - var(--nav-height));
+    display: flex;
+    align-items: flex-start;
+}
+
 .about-page {
     display: grid;
     grid-template-columns: 2fr 1fr;

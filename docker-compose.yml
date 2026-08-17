@@ -4,5 +4,5 @@ services:
     ports:
       - "8181:80"
     volumes:
-      - ./dist:/usr/share/nginx/html:ro
+      - ./out:/usr/share/nginx/html:ro
       - ./nginx/tnag.conf:/etc/nginx/conf.d/default.conf:ro

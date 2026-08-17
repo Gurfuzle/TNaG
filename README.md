@@ -1,11 +1,11 @@
 # Tech Networking and Games (TNaG)
 
-A static site for the Tech Networking and Games community, featuring the Corporate Magic: The Gathering League, blog posts, event calendar, and league statistics.
+A static site for the Tech Networking and Games community, built with Next.js. Features the Corporate Magic: The Gathering League, blog posts, event calendar, and league statistics.
 
 ## Prerequisites
 
-- Python 3.8+
-- Docker & Docker Compose (for local serving)
+- Node.js 18+
+- Docker & Docker Compose (for local serving via Nginx)
 
 ## Quick Start
 
@@ -17,48 +17,65 @@ A static site for the Tech Networking and Games community, featuring the Corpora
 docker compose up
 ```
 
-Or manually:
+Or for development with hot reload:
 
 ```bash
-pip3 install jinja2 markdown pyyaml
-python3 build.py
-docker compose up
+npm install
+npm run dev
+# Visit http://localhost:3000
 ```
 
 ## Project Structure
 
 ```
 TNaG/
-├── assets/
-│   ├── css/style.css          # Site-wide styles
-│   ├── images/
-│   │   ├── blog/              # Blog post images
-│   │   ├── leagues/           # League cover images
-│   │   ├── hero/              # Homepage hero images
-│   │   └── logos/             # Brand logos
-│   └── js/nav.js              # Mobile nav toggle
+├── app/                           # Next.js App Router pages
+│   ├── layout.tsx                 # Root layout (header/footer)
+│   ├── globals.css                # Site-wide styles
+│   ├── page.tsx                   # Homepage
+│   ├── about/page.tsx
+│   ├── blog/
+│   │   ├── page.tsx               # Blog index
+│   │   └── [slug]/page.tsx        # Individual posts
+│   ├── calendar/page.tsx
+│   ├── league-stats/
+│   │   ├── page.tsx
+│   │   └── trades/page.tsx
+│   ├── leagues/[slug]/page.tsx    # Individual league pages
+│   └── mtg-corporate-league/
+│       ├── page.tsx               # Active leagues
+│       └── archive/page.tsx       # Archived leagues
+├── components/                    # Shared React components
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── Card.tsx
+│   ├── CardGrid.tsx
+│   └── DomoEmbed.tsx
+├── lib/
+│   └── data.ts                    # Build-time data loading (CSV + Markdown)
 ├── data/
-│   ├── leagues.csv            # League definitions
-│   └── blog/                  # Blog posts (Markdown + frontmatter)
-├── templates/                 # Jinja2 HTML templates
-├── nginx/tnag.conf            # Nginx config for local dev
-├── dist/                      # Built output (do not edit directly)
-├── build.py                   # Static site generator
-├── build.sh                   # Build helper script
-└── docker-compose.yml         # Local dev server
+│   ├── leagues.csv                # League definitions
+│   └── blog/                      # Blog posts (Markdown + frontmatter)
+├── public/
+│   └── assets/images/             # Static images (leagues, blog, hero, logos)
+├── nginx/tnag.conf                # Nginx config for production serving
+├── docker-compose.yml             # Local dev server (Nginx)
+├── next.config.js                 # Static export configuration
+├── package.json
+└── tsconfig.json
 ```
 
 ## Adding a New League
 
-1. **Add the league image** to `assets/images/leagues/`. The filename should match the slug (e.g., `my-new-set.jpg`). Use a square or near-square image for best results.
+1. **Add the league image** to `public/assets/images/leagues/`. Use a square or near-square image. Filename should match the slug (e.g., `my-new-set.jpg`).
 
-2. **Add a row to `data/leagues.csv`** with the following columns:
+2. **Add a row to `data/leagues.csv`** with these columns:
 
    | Column | Description | Example |
    |--------|-------------|---------|
    | `slug` | URL-safe identifier (lowercase, hyphens) | `my-new-set` |
    | `name` | Display name | `My New Set` |
-   | `image` | Filename in `assets/images/leagues/` | `my-new-set.jpg` |
+   | `image` | Filename in `public/assets/images/leagues/` | `my-new-set.jpg` |
    | `domo_embed_url` | Domo dashboard embed URL | `https://embed.domo.com/embed/pages/abc12` |
    | `start_date` | League start date (YYYY-MM-DD) | `2026-09-01` |
    | `archived` | `false` for active, `true` for archived | `false` |
@@ -68,18 +85,18 @@ TNaG/
    my-new-set,My New Set,my-new-set.jpg,https://embed.domo.com/embed/pages/abc12,2026-09-01,false
    ```
 
-3. **Rebuild the site:**
+3. **Rebuild:**
    ```bash
-   python3 build.py
+   npm run build
    ```
 
-4. The league will appear on the [MTG Corporate League](/mtg-corporate-league/) page. When the league ends, change `archived` to `true` in the CSV to move it to the archive page.
+4. The league will appear on the [MTG Corporate League](/mtg-corporate-league/) page and in the navigation dropdown. When the league ends, change `archived` to `true` to move it to the archive.
 
 ## Adding a New Blog Post
 
 1. **Create a Markdown file** in `data/blog/` named with the desired URL slug (e.g., `my-new-post.md`). The filename becomes the URL: `/blog/my-new-post/`.
 
-2. **Add YAML frontmatter** at the top of the file:
+2. **Add YAML frontmatter** at the top:
 
    ```markdown
    ---
@@ -87,7 +104,7 @@ TNaG/
    date: Aug 17, 2026
    author: "Your Name"
    image: my-new-post-cover.jpg
-   summary: "A brief description of the post for the blog index."
+   summary: "A brief description of the post."
    tags:
      - mtg
      - league
@@ -95,31 +112,30 @@ TNaG/
 
    # My New Blog Post
 
-   Your markdown content goes here. You can use standard Markdown syntax
-   including **bold**, *italic*, [links](https://example.com), images, and more.
+   Your markdown content goes here.
    ```
 
    | Field | Required | Description |
    |-------|----------|-------------|
-   | `title` | Yes | Post title displayed on the page and in the card |
+   | `title` | Yes | Post title |
    | `date` | Yes | Publication date in `Mon DD, YYYY` format (e.g., `Aug 17, 2026`) |
    | `author` | No | Author name |
-   | `image` | No | Cover image filename (stored in `assets/images/blog/`) |
-   | `summary` | No | Short description (not currently displayed on index, but used internally) |
-   | `tags` | No | List of tags for categorization |
+   | `image` | No | Cover image filename (stored in `public/assets/images/blog/`) |
+   | `summary` | No | Short description |
+   | `tags` | No | List of tags |
 
-3. **Add the cover image** (if using one) to `assets/images/blog/`. The image is displayed as a square on the blog index, so square or near-square images work best.
+3. **Add the cover image** (if using one) to `public/assets/images/blog/`. Square images display best on the blog index cards.
 
-4. **Rebuild the site:**
+4. **Rebuild:**
    ```bash
-   python3 build.py
+   npm run build
    ```
 
-5. The post will automatically appear as the featured (large, centered) card at the top of the blog index since posts are sorted newest-first by date.
+5. The post will automatically appear as the featured (large, centered) card at the top of the blog index since posts are sorted newest-first.
 
 ### Date Format
 
-Dates **must** follow the format `Mon DD, YYYY` where `Mon` is the 3-letter month abbreviation:
+Dates **must** follow the format `Mon DD, YYYY`:
 
 > Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
 
@@ -127,26 +143,21 @@ Example: `Sep 15, 2026`
 
 ### Markdown Support
 
-Blog post bodies support [Python-Markdown](https://python-markdown.github.io/) with the `extra` and `smarty` extensions, which includes:
-
+Blog posts support standard Markdown plus:
 - Tables
 - Fenced code blocks
-- Footnotes
-- Abbreviations
-- Smart quotes and dashes
+- HTML within Markdown
 
 ## Archiving a League
 
-To move a league from the active page to the archive, edit `data/leagues.csv` and change the `archived` column from `false` to `true`, then rebuild.
+Edit `data/leagues.csv` and change `archived` from `false` to `true`, then rebuild.
 
 ## Development
 
-The site is a pure static site generator — edit templates, data, or assets, then run `python3 build.py` to regenerate `dist/`. The Docker Compose setup serves `dist/` via Nginx with clean URLs (trailing slashes).
-
-To preview changes locally:
-
 ```bash
-python3 build.py
-docker compose up
-# Visit http://localhost:8181
+npm run dev        # Start dev server with hot reload at localhost:3000
+npm run build      # Build static export to out/
+docker compose up  # Serve out/ via Nginx at localhost:8181
 ```
+
+The site is statically exported — no Node.js server needed in production. Deploy the `out/` directory to any static hosting (Nginx, S3, Netlify, etc.).
