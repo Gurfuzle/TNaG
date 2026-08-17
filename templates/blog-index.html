@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Blog - Tech Networking and Games{% endblock %}
+{% block body_class %}page-bg{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1>Blog</h1>
+        {% if blog_posts %}
+        <div class="featured-card-wrapper">
+            <a href="/blog/{{ blog_posts[0].slug }}/" class="card card-featured">
+                {% if blog_posts[0].image %}
+                <img src="/assets/images/blog/{{ blog_posts[0].image }}" alt="{{ blog_posts[0].title }}" loading="lazy">
+                {% endif %}
+                <span class="card-title">{{ blog_posts[0].title }}</span>
+            </a>
+        </div>
+        {% endif %}
+        <div class="card-grid">
+            {% for post in blog_posts[1:] %}
+            <a href="/blog/{{ post.slug }}/" class="card">
+                {% if post.image %}
+                <img src="/assets/images/blog/{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                {% endif %}
+                <span class="card-title">{{ post.title }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

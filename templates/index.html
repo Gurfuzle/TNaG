@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Tech Networking and Games - Utah{% endblock %}
+{% block content %}
+<section class="hero" style="background-image: url('/assets/images/hero/gameroom-bg.jpg');">
+    <div class="hero-overlay">
+        <h1>Tech Networking and Games</h1>
+        <p class="hero-tagline">Casual Networking across Utah and Salt Lake counties.</p>
+    </div>
+</section>
+
+<section class="section featured-leagues">
+    <div class="container">
+        <h2>Current Leagues</h2>
+        <div class="card-grid">
+            {% for league in active_leagues[:6] %}
+            <a href="/leagues/{{ league.slug }}/" class="card">
+                <img src="/assets/images/leagues/{{ league.image }}" alt="{{ league.name }}" loading="lazy">
+                <span class="card-title">{{ league.name }}</span>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="section-cta">
+            <a href="/mtg-corporate-league/" class="btn">View All Leagues</a>
+        </div>
+    </div>
+</section>
+
+<section class="section cta-section">
+    <div class="container">
+        <h2>Sign Up and Stay Updated!</h2>
+        <p>Join our community of tech professionals who love games.</p>
+        <a href="mailto:technetworkingandgames@gmail.com" class="btn">Get In Touch</a>
+    </div>
+</section>
+
+{% if recent_posts %}
+<section class="section">
+    <div class="container">
+        <h2>Latest from the Blog</h2>
+        <div class="blog-grid">
+            {% for post in recent_posts %}
+            <a href="/blog/{{ post.slug }}/" class="blog-card">
+                {% if post.image %}
+                <img src="/assets/images/blog/{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                {% endif %}
+                <div class="blog-card-content">
+                    <h3>{{ post.title }}</h3>
+                    {% if post.date %}<time>{{ post.date }}</time>{% endif %}
+                    {% if post.summary %}<p>{{ post.summary[:120] }}...</p>{% endif %}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="section-cta">
+            <a href="/blog/" class="btn">View All Posts</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

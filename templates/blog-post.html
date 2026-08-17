@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} - Tech Networking and Games{% endblock %}
+{% block body_class %}page-bg{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <article class="blog-post">
+            <header class="blog-post-header">
+                <h1>{{ post.title }}</h1>
+                <div class="blog-post-meta">
+                    {% if post.author %}<span class="author">{{ post.author }}</span>{% endif %}
+                    {% if post.date %}<time>{{ post.date }}</time>{% endif %}
+                </div>
+            </header>
+            <div class="blog-post-body">
+                {{ post.body_html | safe }}
+            </div>
+            <footer class="blog-post-footer">
+                <a href="/blog/" class="btn btn-secondary">&larr; Back to Blog</a>
+            </footer>
+        </article>
+    </div>
+</section>
+{% endblock %}
