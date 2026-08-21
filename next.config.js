@@ -5,6 +5,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: ['gray-matter', 'esprima'],
+  },
 };
 
 module.exports = nextConfig;

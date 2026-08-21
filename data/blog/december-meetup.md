@@ -2,7 +2,8 @@
 title: "December Meetup"
 date: Dec 16, 2019
 author: "Michael Swensen"
-summary: "* Michael Swensen"
+image: "december-meetup.jpg"
+summary: "Holiday meetup announcement - join us for Game Grids Christmas Chaos Draft or casual gaming!"
 ---
 
 # December Meetup

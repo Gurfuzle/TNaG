@@ -1,9 +1,13 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import Card from '@/components/Card';
 import CardGrid from '@/components/CardGrid';
 import { getArchivedLeagues } from '@/lib/data';
 
-export const metadata = { title: 'League Archive - Tech Networking and Games' };
+export const metadata: Metadata = {
+  title: 'League Archive',
+  description: 'Browse past seasons of the Corporate Magic: The Gathering League — view stats and results from previous sealed deck leagues.',
+};
 
 export default function ArchivePage() {
   const archivedLeagues = getArchivedLeagues();

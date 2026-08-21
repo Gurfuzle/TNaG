@@ -1,7 +1,17 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import Card from '@/components/Card';
 import CardGrid from '@/components/CardGrid';
 import { getActiveLeagues, getBlogPosts } from '@/lib/data';
+
+export const metadata: Metadata = {
+  title: 'Tech Networking and Games | MTG & Tabletop Gaming Community in Utah',
+  description: 'Join Utah\'s premier tech professional networking community. Play Magic: The Gathering, Dungeons & Dragons, and board games while building your career network in Salt Lake and Utah counties.',
+  openGraph: {
+    title: 'Tech Networking and Games | MTG & Tabletop Gaming Community in Utah',
+    description: 'Join Utah\'s premier tech professional networking community. Play Magic: The Gathering, Dungeons & Dragons, and board games while building your career network.',
+  },
+};
 
 export default async function HomePage() {
   const activeLeagues = getActiveLeagues();
@@ -10,7 +20,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="hero" style={{ backgroundImage: "url('/assets/images/hero/gameroom-bg.jpg')" }}>
+      <section className="hero">
         <div className="hero-overlay">
           <h1>Tech Networking and Games</h1>
           <p className="hero-tagline">Casual Networking across Utah and Salt Lake counties.</p>
@@ -41,7 +51,7 @@ export default async function HomePage() {
         <div className="container">
           <h2>Sign Up and Stay Updated!</h2>
           <p>Join our community of tech professionals who love games.</p>
-          <a href="mailto:technetworkingandgames@gmail.com" className="btn">Get In Touch</a>
+          <Link href="/contact/" className="btn">Get In Touch</Link>
         </div>
       </section>
 

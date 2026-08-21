@@ -1,4 +1,9 @@
-export const metadata = { title: 'About - Tech Networking and Games' };
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'Learn about Tech Networking and Games — a group of technical professionals building networks through Magic: The Gathering, D&D, and tabletop games in Utah.',
+};
 
 export default function AboutPage() {
   return (
@@ -24,7 +29,7 @@ export default function AboutPage() {
           <p><a href="mailto:technetworkingandgames@gmail.com">technetworkingandgames@gmail.com</a></p>
         </div>
         <div className="about-photo">
-          <img src="/assets/images/michael-headshot.png" alt="Michael Swensen" />
+          <img src="/assets/images/michael-headshot.png" alt="Michael Swensen - Founder of Tech Networking and Games" />
           <p className="about-name">Michael Swensen</p>
         </div>
       </div>

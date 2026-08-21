@@ -1,8 +1,12 @@
+import { Metadata } from 'next';
 import Card from '@/components/Card';
 import CardGrid from '@/components/CardGrid';
 import { getBlogPosts } from '@/lib/data';
 
-export const metadata = { title: 'Blog - Tech Networking and Games' };
+export const metadata: Metadata = {
+  title: 'Blog',
+  description: 'News, recaps, and updates from Tech Networking and Games — covering our MTG Corporate League, D&D events, and tabletop gaming community in Utah.',
+};
 
 export default async function BlogIndexPage() {
   const posts = await getBlogPosts();
